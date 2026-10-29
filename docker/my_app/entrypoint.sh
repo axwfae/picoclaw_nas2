@@ -31,7 +31,7 @@ mkdir "${WORKSPACE_DIR}/tmp"
 #=======================================
 SRC_GENIUZ_DIR="/my_app/geniuz"
 GENIUZ_DIR="${WORKSPACE_DIR}/skills/geniuz"
-GENIUZ_BIN_DIR="${PICOPATH}/.geniuz"
+#GENIUZ_BIN_DIR="${PICOPATH}/.geniuz"
 
 # 复制 geniuz 若不存在）
 if [ ! -d "${GENIUZ_DIR}" ]; then
@@ -47,9 +47,9 @@ if [ ! -d "${GENIUZ_DIR}" ]; then
 #    sudo ln -sf "${GENIUZ_DIR}/bin/geniuz" /usr/local/bin/geniuz
 fi
 
-p="${GENIUZ_PREFIX:${PICOPATH}/.geniuz}"
-export GENIUZ_HOME="$P"
-if ! "$p/bin/geniuz" --version > /dev/null 2>&1; then
+GENIUZ_DEF_P="${GENIUZ_PREFIX:-${PICOPATH}/.geniuz}"
+export GENIUZ_HOME="$GENIUZ_DEF_P"
+if ! "$GENIUZ_DEF_P/bin/geniuz" --version > /dev/null 2>&1; then
   curl -fsSL -o /tmp/geniuz-install.sh https://raw.githubusercontent.com/jackccrawford/geniuz/main/install.sh && sh /tmp/geniuz-install.sh
   rm -f /tmp/geniuz-install.sh
 fi
