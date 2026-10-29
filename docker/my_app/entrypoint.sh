@@ -31,6 +31,7 @@ mkdir "${WORKSPACE_DIR}/tmp"
 #=======================================
 SRC_GENIUZ_DIR="/my_app/geniuz"
 GENIUZ_DIR="${WORKSPACE_DIR}/skills/geniuz"
+GENIUZ_BIN_DIR="${WORKSPACE_DIR}/.geniuz"
 
 # 复制 geniuz 若不存在）
 if [ ! -d "${GENIUZ_DIR}" ]; then
@@ -38,10 +39,16 @@ if [ ! -d "${GENIUZ_DIR}" ]; then
     sudo find /my_app -type d -exec chmod 755 {} +
     sudo find /my_app -type f -name "*.sh" -exec chmod 755 {} +
 
-    cp -a "${SRC_GENIUZ_DIR}" "${GENIUZ_DIR}"
+#    cp -a "${SRC_GENIUZ_DIR}" "${GENIUZ_DIR}"
+#    sudo chmod -R 755 "${GENIUZ_DIR}/bin/"*
+#    sudo ln -sf "${GENIUZ_DIR}/bin/geniuz" /usr/local/bin/geniuz
 
-    sudo chmod -R 755 "${GENIUZ_DIR}/bin/"*
-    sudo ln -sf "${GENIUZ_DIR}/bin/geniuz" /usr/local/bin/geniuz
+    mkdir -p "${GENIUZ_DIR}"
+    cp "${SRC_GENIUZ_DIR}/SKILL.md" "${GENIUZ_DIR}"
+
+    cp -a "${SRC_GENIUZ_DIR}" "${GENIUZ_BIN_DIR}"
+    sudo chmod -R 755 "${GENIUZ_BIN_DIR}/bin/"*
+    sudo ln -sf "${GENIUZ_DIR}/bin/geniuz.sh" /usr/local/bin/geniuz
 fi
 #=======================================
 
