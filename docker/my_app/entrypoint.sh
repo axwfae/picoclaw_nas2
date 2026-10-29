@@ -31,7 +31,7 @@ mkdir "${WORKSPACE_DIR}/tmp"
 #=======================================
 SRC_GENIUZ_DIR="/my_app/geniuz"
 GENIUZ_DIR="${WORKSPACE_DIR}/skills/geniuz"
-GENIUZ_BIN_DIR="${WORKSPACE_DIR}/.geniuz"
+GENIUZ_BIN_DIR="${PICOPATH}/.geniuz"
 
 # 复制 geniuz 若不存在）
 if [ ! -d "${GENIUZ_DIR}" ]; then
@@ -39,17 +39,21 @@ if [ ! -d "${GENIUZ_DIR}" ]; then
     sudo find /my_app -type d -exec chmod 755 {} +
     sudo find /my_app -type f -name "*.sh" -exec chmod 755 {} +
 
-#    cp -a "${SRC_GENIUZ_DIR}" "${GENIUZ_DIR}"
-#    sudo chmod -R 755 "${GENIUZ_DIR}/bin/"*
-#    sudo ln -sf "${GENIUZ_DIR}/bin/geniuz" /usr/local/bin/geniuz
-
     mkdir -p "${GENIUZ_DIR}"
     cp "${SRC_GENIUZ_DIR}/SKILL.md" "${GENIUZ_DIR}"
 
-    cp -a "${SRC_GENIUZ_DIR}" "${GENIUZ_BIN_DIR}"
-    sudo chmod -R 755 "${GENIUZ_BIN_DIR}/bin/"*
-    sudo ln -sf "${GENIUZ_DIR}/bin/geniuz.sh" /usr/local/bin/geniuz
+#    cp -a "${SRC_GENIUZ_DIR}" "${GENIUZ_DIR}"
+#    sudo chmod -R 755 "${GENIUZ_DIR}/bin/"*
+#    sudo ln -sf "${GENIUZ_DIR}/bin/geniuz" /usr/local/bin/geniuz
 fi
+
+p="${GENIUZ_PREFIX:${PICOPATH}/.geniuz}"
+export GENIUZ_HOME="$P"
+if ! "$p/bin/geniuz" --version > /dev/null 2>&1; then
+  curl -fsSL -o /tmp/geniuz-install.sh https://raw.githubusercontent.com/jackccrawford/geniuz/main/install.sh && sh /tmp/geniuz-install.sh
+  rm -f /tmp/geniuz-install.sh
+fi
+
 #=======================================
 
 #=======================================
