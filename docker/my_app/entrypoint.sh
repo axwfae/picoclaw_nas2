@@ -52,6 +52,7 @@ export GENIUZ_HOME="$GENIUZ_DEF_P"
 if ! "$GENIUZ_DEF_P/bin/geniuz" --version > /dev/null 2>&1; then
   curl -fsSL -o /tmp/geniuz-install.sh https://raw.githubusercontent.com/jackccrawford/geniuz/main/install.sh && sh /tmp/geniuz-install.sh
   rm -f /tmp/geniuz-install.sh
+  sudo ln -sf "${GENIUZ_DEF_P}/bin/geniuz" /usr/local/bin/geniuz
 fi
 
 #=======================================
