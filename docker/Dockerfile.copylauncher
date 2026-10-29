@@ -73,11 +73,13 @@ RUN LATEST=$(curl -fsSL "https://api.github.com/repos/jackccrawford/Geniuz/relea
     tar -xzf "/tmp/geniuz.tar.gz" -C /tmp ;\
     rm "/tmp/geniuz.tar.gz"
 
-RUN mkdir -p /my_app/geniuz/bin/lib
+RUN mkdir -p /my_app/geniuz/bin
+RUN mkdir -p /my_app/geniuz/lib
 
-RUN cp /tmp/geniuz /my_app/geniuz/bin/geniuz
-RUN cp /tmp/libonnxruntime.so.1.22.0 /my_app/geniuz/bin/lib/libonnxruntime.so.1
-RUN cp /tmp/libonnxruntime.so.1.22.0 /my_app/geniuz/bin/lib/libonnxruntime.so
+RUN cp /tmp/geniuz /my_app/geniuz/bin/geniuz.bin
+
+RUN cp /tmp/libonnxruntime.so.1.22.0 /my_app/geniuz/lib/libonnxruntime.so.1
+RUN cp /tmp/libonnxruntime.so.1.22.0 /my_app/geniuz/lib/libonnxruntime.so
 
 RUN chmod +x /my_app/entrypoint.sh
 
